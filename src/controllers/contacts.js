@@ -5,29 +5,45 @@ import {
   deleteContact,
   updateContact,
 } from '../services/contacts.js';
+
+import { parsePaginationParams } from '../units/parsePaginationParams.js';
+import { parseSortParams } from '../units/parseSortParams.js';
+import { parseFilterParams } from '../units/parseFilterParams.js';
+
 import createHttpError from 'http-errors';
 
 export const getContactsController = async (req, res, next) => {
   try {
-    const contacts = await getAllContacts();
-    res.status(200).json({
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+
+    const contacts = await getAllContacts({
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filter,
+    });
+
+    res.json({
       status: 200,
       message: 'Successfully found contacts!',
       data: contacts,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
-  // Відповідь, якщо контакт не знайдено
+
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
-  // Відповідь, якщо контакт знайдено
+
   res.json({
     status: 200,
     message: `Successfully found contact with id ${contactId}!`,
@@ -81,3 +97,49 @@ export const patchContactController = async (req, res, next) => {
     data: result.contact,
   });
 };
+
+// export const getContactsController = async (req, res, next) => {
+//   try {
+//     const contacts = await getAllContacts();
+//     res.status(200).json({
+//       status: 200,
+//       message: 'Successfully found contacts!',
+//       data: contacts,
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+// export const getContactsController = async (req, res) => {
+//   const { page, perPage } = parsePaginationParams(req.query);
+//   const contacts = await getAllContacts({
+//     page,
+//     perPage,
+//   });
+
+//   res.json({
+//     status: 200,
+//     message: 'Successfully found contacts!',
+//     data: contacts,
+//   });
+// };
+
+// export const getStudentsController = async (req, res) => {
+//   const { page, perPage } = parsePaginationParams(req.query);
+
+//   const { sortBy, sortOrder } = parseSortParams(req.query);
+
+//   const students = await getAllStudents({
+//     page,
+//     perPage,
+//     sortBy,
+//     sortOrder,
+//   });
+
+//   res.json({
+//     status: 200,
+//     message: 'Successfully found students!',
+//     data: students,
+//   });
+// };
