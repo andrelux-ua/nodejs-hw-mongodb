@@ -82,27 +82,3 @@ export const updateContact = async (contactId, payload, options = {}) => {
     isNew: Boolean(options.upsert),
   };
 };
-
-// export const getAllContacts = async () => {
-//   const contacts = await ContactsCollection.find();
-//   return contacts;
-// };
-
-// export const getAllStudents = async ({ page, perPage }) => {
-//   const limit = perPage;
-//   const skip = (page - 1) * perPage;
-
-//   const studentsQuery = StudentsCollection.find();
-//   const studentsCount = await StudentsCollection.find()
-//     .merge(studentsQuery)
-//     .countDocuments();
-
-//   const students = await studentsQuery.skip(skip).limit(limit).exec();
-
-//   const paginationData = calculatePaginationData(studentsCount, perPage, page);
-
-//   return {
-//     data: students,
-//     ...paginationData,
-//   };
-// };
