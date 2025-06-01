@@ -9,12 +9,12 @@ import {
 } from '../validation/contacts.js';
 
 import {
+  getContactsController,
+  getContactByIdController,
   createContactController,
   deleteContactController,
-  getContactByIdController,
-  getContactsController,
-  patchContactController,
   upsertContactController,
+  patchContactController,
 } from '../controllers/contacts.js';
 
 const router = Router();
