@@ -21,7 +21,6 @@ export const setupServer = () => {
       type: ['application/json', 'application/vnd.api+json'],
     }),
   );
-  app.use(cors());
 
   app.use(
     pino({
