@@ -1,3 +1,5 @@
+import path from 'node:path';
+import fs from 'node:fs/promises';
 import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
@@ -15,8 +17,6 @@ import jwt from 'jsonwebtoken';
 import { getEnvVar } from '../units/getEnvVar.js';
 import { sendEmail } from '../units/sendMail.js';
 import handlebars from 'handlebars';
-import path from 'node:path';
-import fs from 'node:fs/promises';
 
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
