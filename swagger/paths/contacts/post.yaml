@@ -1,0 +1,25 @@
+summary: Create a new contact
+operationId: createContact
+tags:
+  - Contacts
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: '../../components/schemas/NewContact.yaml'
+responses:
+  '201':
+    description: Contact successfully created
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Contact.yaml'
+  '400':
+    $ref: '../../components/responses/BadRequest.yaml'
+  '401':
+    $ref: '../../components/responses/Unauthorized.yaml'
+  '500':
+    $ref: '../../components/responses/InternalServerError.yaml'

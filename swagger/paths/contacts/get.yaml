@@ -1,0 +1,66 @@
+summary: Get all contacts
+operationId: getContacts
+tags:
+  - Contacts
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: isFavourite
+    schema:
+      type: boolean
+    description: Filter by favourite status (true/false)
+  - in: query
+    name: type
+    schema:
+      type: string
+      enum: [work, home, personal]
+    description: Filter by contact type
+  - in: query
+    name: sortBy
+    schema:
+      type: string
+      enum: [name, email, isFavourite]
+    description: Field to sort by
+  - in: query
+    name: sortOrder
+    schema:
+      type: string
+      enum: [asc, desc]
+    description: Sort order (ascending/descending)
+  - in: query
+    name: page
+    schema:
+      type: integer
+    description: Page number for pagination
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+    description: Number of contacts per page
+  - in: query
+    name: name
+    schema:
+      type: string
+    description: Filter by contact name (partial match)
+  - in: query
+    name: email
+    schema:
+      type: string
+    description: Filter by contact email
+  - in: query
+    name: phone
+    schema:
+      type: string
+    description: Filter by contact phone number
+responses:
+  '200':
+    description: List of contacts
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/ContactsList.yaml'
+  '401':
+    $ref: '../../components/responses/Unauthorized.yaml'
+  '500':
+    $ref: '../../components/responses/InternalServerError.yaml'

@@ -7,6 +7,8 @@ import { getEnvVar } from './units/getEnvVar.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { UPLOAD_DIR } from './constants/index.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../docs/swagger.json'with { type: 'json' };
 
 const PORT = Number(getEnvVar('PORT', 3000));
 
@@ -38,6 +40,7 @@ export const setupServer = () => {
   });
 
   app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(router);
   app.use(notFoundHandler);
@@ -46,5 +49,6 @@ export const setupServer = () => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log(`http://localhost:${PORT}`);
+    console.log(`Swagger UI available at http://localhost:${PORT}/api-docs`);
   });
 };

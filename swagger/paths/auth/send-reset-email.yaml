@@ -1,0 +1,18 @@
+summary: Send reset password email
+operationId: sendResetEmail
+tags:
+  - Auth
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: ../../components/schemas/ResetEmailRequest.yaml
+responses:
+  '200':
+    description: Reset password email sent
+  '404':
+    $ref: ../../components/responses/NotFound.yaml
+  '500':
+    $ref: '../../components/responses/InternalServerError.yaml'

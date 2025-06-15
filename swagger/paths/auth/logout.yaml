@@ -1,0 +1,13 @@
+summary: User logout
+operationId: logoutUser
+tags:
+  - Auth
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: User logged out successfully
+  '401':
+    $ref: '../../components/responses/Unauthorized.yaml'
+  '500':
+    $ref: '../../components/responses/InternalServerError.yaml'
