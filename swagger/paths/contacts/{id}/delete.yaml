@@ -11,7 +11,7 @@ parameters:
     schema:
       type: string
 responses:
-  '200':
+  '204':
     description: Contact successfully deleted
   '401':
     $ref: '../../../components/responses/Unauthorized.yaml'

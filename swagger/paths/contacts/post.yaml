@@ -12,7 +12,7 @@ requestBody:
         $ref: '../../components/schemas/NewContact.yaml'
 responses:
   '201':
-    description: Contact successfully created
+    description: Contact created successfully
     content:
       application/json:
         schema:
